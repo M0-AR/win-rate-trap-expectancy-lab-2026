@@ -8,7 +8,15 @@
 
 > **One line:** a trader who wins 8 times out of 10 can shrink an account while a trader who wins 5 out of 10 grows it — this repo proves why on live market data, then teaches you the fix from zero to professional.
 
-**🌐 Live interactive site:** [`preview.html`](preview.html) · also served as [`docs/index.html`](docs/index.html) for GitHub Pages
+**🌐 Live interactive site (click any — all three render the same page):**
+
+| Entry | URL |
+|---|---|
+| 🏠 Home | https://m0-ar.github.io/win-rate-trap-expectancy-lab-2026/ |
+| 🧪 Preview | https://m0-ar.github.io/win-rate-trap-expectancy-lab-2026/preview.html |
+| 📄 Docs copy | https://m0-ar.github.io/win-rate-trap-expectancy-lab-2026/docs/preview.html |
+
+In this repo the same page lives at [`preview.html`](preview.html) and [`docs/preview.html`](docs/preview.html) (identical copies), with [`index.html`](index.html) redirecting `/` → `preview.html` — so it resolves under either Pages source setting (`/` or `/docs`).
 **▶️ Demo:** click the screenshot below to open the interactive page (calculator + 10-question quiz). GitHub renders no inline video, so the live page *is* the demo — see [🎬 Demo & video](#-demo--video) for recording instructions.
 
 [![Open the interactive preview — calculator + quiz](figures/preview-full.png)](preview.html)
@@ -66,7 +74,7 @@
 
 GitHub READMEs strip inline `<video>` tags, so the supported 2026 pattern is: **clickable thumbnail → live page or hosted video**.
 
-- **Interactive demo (recommended):** the screenshot at the top links to [`preview.html`](preview.html) — calculator, tables, and graded quiz. After pushing to GitHub, the same page is live at `https://<you>.github.io/<repo>/` (see Pages section).
+- **Interactive demo (recommended):** the screenshot at the top links to [`preview.html`](preview.html) — calculator, tables, and graded quiz. Live on the web: https://m0-ar.github.io/win-rate-trap-expectancy-lab-2026/preview.html (mirrors: `/` and `/docs/preview.html` — see table above).
 - **Add your own video in 2 minutes:** record the preview page or a terminal run with any screen recorder, upload the MP4 to the repo (`docs/demo.mp4`) or YouTube, then add this snippet under the screenshot:
   ```markdown
   [![Watch the 2-min demo](figures/preview-full.png)](https://youtu.be/YOUR_ID)
@@ -79,11 +87,21 @@ When someone clicks your repo link, they can read the paper *and* open the full 
 
 1. Push this repo to GitHub.
 2. Go to **Settings → Pages → Build and deployment → Deploy from a branch**.
-3. Set **Branch: `main`**, **Folder: `/docs`** → Save.
-4. Open `https://<your-username>.github.io/<repo-name>/` — it serves [`docs/index.html`](docs/index.html) (a copy of `preview.html`, plus `docs/.nojekyll` so Pages serves it as-is).
-5. Put that URL at the top of the repo (About → Website) and in the Demo section above.
+3. Set **Branch: `main`**, **Folder: `/docs`** (recommended) → Save.
+4. Open https://m0-ar.github.io/win-rate-trap-expectancy-lab-2026/ — it serves [`docs/index.html`](docs/index.html) (a copy of `preview.html`, plus `docs/.nojekyll` so Pages serves it as-is).
+5. If Pages is set to `/` (root) instead, the same content still resolves via [`preview.html`](preview.html) and [`index.html`](index.html) (redirect) — both settings work because root and `/docs` mirrors are kept identical.
 
-No build step, no Actions required. To update the site, edit `preview.html`, copy to `docs/index.html`, push.
+Quick check (expect 200 on all three when `/docs` is the source; with root source expect 200/404/200 — then switch the setting to `/docs`):
+
+```bash
+BASE="https://m0-ar.github.io/win-rate-trap-expectancy-lab-2026"
+for p in "" "preview.html" "docs/preview.html"; do
+  printf "%s -> " "/$p"
+  curl -s -o /dev/null -w "%{http_code}\n" "$BASE/$p"
+done
+```
+
+No build step, no Actions required. To update the site, edit `preview.html`, copy to `docs/index.html` and `docs/preview.html`, push.
 
 ## 👥 Who this is for
 
@@ -107,7 +125,7 @@ Then open `preview.html` in a browser (or the Pages URL) for the guided tour.
 
 ## 📁 Repository map
 
-- `preview.html` — beautiful interactive summary (calculator + quiz); `docs/index.html` — Pages copy
+- `preview.html` — beautiful interactive summary (calculator + quiz); `docs/index.html` + `docs/preview.html` — identical Pages copies; `index.html` — root redirect (`/` → `preview.html`); `.nojekyll` at root and `docs/`
 - `figures/` — `E3_survival.png`, `E6_decoupling.png`, `preview-full.png` (verified screenshot)
 - `results/` — `summary.json`, `grid.csv` (56 fade cells), `grid_breakout.csv` (56 trend cells), `direction_split.csv`, `montecarlo.csv`, `montecarlo_positive.csv`, `scale_compare.csv`, `trades_pooled.csv` (1495), `mae_mfe_spy.csv`
 - `src/` — `data_loader.py`, `strategies.py`, `backtest.py`, `metrics.py`, `montecarlo.py`, `patterns.py`
