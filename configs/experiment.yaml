@@ -1,0 +1,16 @@
+DATA_DIR: data
+RESULTS_DIR: results
+FIGURES_DIR: figures
+symbols: ["SPY", "QQQ", "DIA", "IWM", "CL=F", "GC=F", "BTC-USD"]
+start: "2018-01-01"
+end: "2026-10-01"
+initial_equity: 10000.0
+risk_pct_default: 0.03
+cost_R: 0.05
+atr_window: 14
+entry_lookback: 20
+targets_R: [1.0, 1.5, 2.0, 3.0]
+risk_grid: [0.01, 0.02, 0.03, 0.05, 0.08, 0.10]
+n_bootstrap: 2000
+n_montecarlo: 5000
+seed: 42

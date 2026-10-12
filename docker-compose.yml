@@ -1,0 +1,13 @@
+services:
+  research:
+    build: .
+    container_name: win-rate-trap-lab
+    volumes:
+      - ./data:/lab/data
+      - ./results:/lab/results
+      - ./figures:/lab/figures
+    command: python experiments/run_all.py --config configs/experiment.yaml
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MPLBACKEND=Agg
+      - PYTHONPATH=/lab
